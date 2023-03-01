@@ -14,13 +14,13 @@ const { src, dest, series, parallel, watch } = gulp;
 const sass = gulpSass(dartSass);
 
 const cleanDist = () => {
-  return src("./dist/**/*", { read: false }).pipe(clean());
+  return src("./docs/**/*", { read: false }).pipe(clean());
 };
 
 const html = () => {
   return src("./src/index.html")
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(dest("./dist/"))
+    .pipe(dest("./docs/"))
     .pipe(browsersync.stream());
 };
 
@@ -36,14 +36,14 @@ const styles = () => {
       })
     )
     .pipe(concat("style.min.css"))
-    .pipe(dest("./dist/css/"))
+    .pipe(dest("./docs/css/"))
     .pipe(browsersync.stream());
 };
 
 const scripts = () => {
   return src("./src/js/**/*.js")
     .pipe(minify())
-    .pipe(dest("./dist/js/"))
+    .pipe(dest("./docs/js/"))
     .pipe(browsersync.stream());
 };
 
@@ -56,13 +56,13 @@ const images = () => {
         optimizationLevel: 3,
       })
     )
-    .pipe(dest("./dist/img"));
+    .pipe(dest("./docs/img"));
 };
 
 const server = () => {
   browsersync.init({
     server: {
-      baseDir: `./dist`,
+      baseDir: `./docs`,
     },
     notify: false,
     port: 3000,
